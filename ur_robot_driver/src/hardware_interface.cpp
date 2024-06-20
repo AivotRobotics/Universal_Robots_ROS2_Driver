@@ -381,6 +381,9 @@ return_type URPositionHardwareInterface::start()
                                                                            "for details.");
   }
 
+  // The line below is to increase the reliability of the driver to stay connected during inactivity
+  ur_driver_->setKeepaliveCount(500);
+
   ur_driver_->startRTDECommunication();
 
   async_thread_ = std::make_shared<std::thread>(&URPositionHardwareInterface::asyncThread, this);
